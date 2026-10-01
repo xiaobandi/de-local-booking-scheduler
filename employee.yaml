@@ -1,0 +1,103 @@
+apiVersion: digital-employee/v1
+kind: DigitalEmployee
+metadata:
+  id: de_local_booking_scheduler
+  name: 预约排班调度员
+  alias: null
+  repo: de-local-booking-scheduler
+  card_no: 7.4.6 ⑤
+  group: local
+  group_label: 本地生活服务商家
+  phase: '**P1 二期**（与会员唤醒师打包"美业/健身版"，客单价与续费率最高）'
+  complexity: '**L**（排班引擎需定制开发）'
+  score: 20
+  price: 100–300 元/月（美业 SaaS 主流价位，据 R4 调研）；**代配置服务加成：800–2000 元/次**（预约入口搭建+技师与项目库灌入+小程序对接——本群体内配置难度最高，加成空间最大）
+  channels:
+  - GitHub（必备）
+  - '**淘宝/闲鱼**（美业 SaaS 代购与代配置服务聚集地）'
+  - 腾讯 WorkBuddy Skill 市场
+  - 千问办公
+  license: Proprietary
+  version: 1.0.0
+spec:
+  positioning: 漏单错单归零、低谷填平的排班大脑
+  users: 美业/健身/家政/教培等预约制门店（约千万级，餐饮不适用，据 R4 调研）
+  boundary: '**做**：预约受理、智能排班、冲突检测、爽约预测、到店提醒；**不做**：不接管收银、不做技师绩效仲裁'
+  kpi: 漏单错单率 → 0；爽约率下降 ≥30%；低谷时段上座率提升可追踪
+  roi_summary: 爽约率降 30%+漏单归零，月挽回数千元直接损失，ROI 最硬
+  demand_refs:
+  - 无
+  demand_support: 表外
+  demand_evidence: ''
+runtime:
+  system_prompt: persona/system-prompt.md
+  boundary: persona/boundary.md
+  kpi: persona/kpi.md
+deliverables:
+  skills:
+  - slug: commission-calculator
+    name: 提成计算辅助
+    kind: private
+    path: skills/commission-calculator
+    version: 1.0.0
+    maturity: contract-complete
+  - slug: demand-forecast
+    name: 需求预测
+    kind: private
+    path: skills/demand-forecast
+    version: 1.0.0
+    maturity: contract-complete
+  - slug: notification-dispatcher
+    name: 消息通知
+    kind: private
+    path: skills/notification-dispatcher
+    version: 1.0.0
+    maturity: contract-complete
+  - slug: shift-calendar-engine
+    name: 日历排班引擎
+    kind: private
+    path: skills/shift-calendar-engine
+    version: 1.0.0
+    maturity: contract-complete
+  workflows:
+  - slug: wf-local-booking-collect
+    name: 在线预约受理
+    path: workflows/wf-local-booking-collect
+    version: 1.0.0
+    phase: P1
+    calls:
+    - shift-calendar-engine
+  - slug: wf-local-booking-schedule
+    name: 技师/场地智能排班
+    path: workflows/wf-local-booking-schedule
+    version: 1.0.0
+    phase: P1
+    calls:
+    - shift-calendar-engine
+  - slug: wf-local-booking-conflict-check
+    name: 冲突与超售检测
+    path: workflows/wf-local-booking-conflict-check
+    version: 1.0.0
+    phase: P1
+    calls:
+    - shift-calendar-engine
+  - slug: wf-local-booking-noshow-remind
+    name: 爽约预测+候补补位
+    path: workflows/wf-local-booking-noshow-remind
+    version: 1.0.0
+    phase: P1
+    calls:
+    - demand-forecast
+    - notification-dispatcher
+  - slug: wf-local-booking-efficiency-weekly
+    name: 排班效率周报
+    path: workflows/wf-local-booking-efficiency-weekly
+    version: 1.0.0
+    phase: P2
+    calls:
+    - demand-forecast
+    - notification-dispatcher
+  knowledge_base: kb/
+  connectors: connectors/bindings.yaml
+external_dependencies: []
+spec_only_dependencies: []

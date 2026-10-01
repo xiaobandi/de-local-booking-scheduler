@@ -1,0 +1,7 @@
+repo: de-local-booking-scheduler
+core:
+  repo: agent-skills-core
+  version: 1.0.0
+  tag: v1.0.0
+dependencies: []
+resolution_rule: 员工仓库对 core 只做 external_dependency 引用，不内联复制 SKILL.md 正文

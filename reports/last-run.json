@@ -1,0 +1,36 @@
+{
+  "repo": "de-local-booking-scheduler",
+  "kind": "employee",
+  "run_at": "2026-09-30T23:54:23+08:00",
+  "cases": 246,
+  "passed": 246,
+  "failed": 0,
+  "by_suite": {
+    "structure": {
+      "total": 68,
+      "failed": 0
+    },
+    "contract": {
+      "total": 29,
+      "failed": 0
+    },
+    "scenario": {
+      "total": 124,
+      "failed": 0
+    },
+    "script": {
+      "total": 4,
+      "failed": 0
+    },
+    "doc": {
+      "total": 3,
+      "failed": 0
+    },
+    "compliance": {
+      "total": 18,
+      "failed": 0
+    }
+  },
+  "skipped": [],
+  "failures": []
+}
