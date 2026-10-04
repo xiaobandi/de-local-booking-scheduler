@@ -1,0 +1,15 @@
+{
+  "name": "wf-local-booking-conflict-check",
+  "title": "冲突与超售检测",
+  "kind": "workflow",
+  "owner": "de-local-booking-scheduler",
+  "complexity": "S",
+  "phase": "P1",
+  "one_liner": "实时冲突扫描 → 老板确认改派方案",
+  "pages": [
+    "docs/使用手册.html",
+    "docs/使用示例.html",
+    "docs/用户场景.html",
+    "docs/架构与流程图.html"
+  ]
+}

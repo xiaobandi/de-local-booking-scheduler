@@ -1,30 +1,37 @@
 ---
-name: wf-local-booking-conflict-check
+name: wf-local-booking-collect
 description: >-
-  预约排班调度员 的「冲突与超售检测」工作流：实时冲突扫描 → 老板确认改派方案。触发方式：事件（新预约写入）。
-  当用户要完成「冲突与超售检测」这件事、或触发了上述条件时使用。
+  预约排班调度员 的「在线预约受理」工作流：意图识别 → 项目/技师/时间匹配 → 确认。触发方式：事件（客户微信/小程序发起）。
+  当用户要完成「在线预约受理」这件事、或触发了上述条件时使用。
 license: Proprietary
+compatibility: >-
+  需要能读取工作区文件；若环境支持执行代码，将额外启用 scripts/ 下的确定性脚本路径。
+  跨 WorkBuddy / ChatGPT / DeepSeek Harness / Kimi Work / 豆包工作。
 metadata:
   author: PLATFORM
   version: "1.0.0"
   standard: agent-skills/v1
+  library: agent-skills-library
   layer: L2-workflow
   owner: de_local_booking_scheduler
-  complexity: S
+  repo: de-local-booking-scheduler
+  visibility: private_to_employee
+  delivery: employee
+  complexity: M
   phase: P1
-  source: new
+  source: library
 ---
 
-# 冲突与超售检测
+# 在线预约受理
 
-> 归属：**预约排班调度员**（`de-local-booking-scheduler`）　触发：事件（新预约写入）　
-> 复杂度 S　阶段 P1
+> 归属：**预约排班调度员**（`de-local-booking-scheduler`）　触发：事件（客户微信/小程序发起）　
+> 复杂度 M　阶段 P1
 
 ## 一、这条工作流解决什么
 
-实时冲突扫描 → 老板确认改派方案
+意图识别 → 项目/技师/时间匹配 → 确认
 
-**业务收益**：错单归零，避免当场赔付与差评
+**业务收益**：替代前台接电话登记，日省 1–2 小时
 
 ## 二、调用的 SKILL（必填列，逐条锁定版本）
 
@@ -37,17 +44,24 @@ metadata:
 
 ## 三、执行步骤（每步四要素齐备）
 
-### 步骤 1：实时冲突扫描
+### 步骤 1：意图识别
 
-- **做**：实时冲突扫描
+- **做**：意图识别
 - **输入来源**：用户提供的原始材料（工作流第 1 步没有「上一步」）/ 本员工知识库 `kb/` / 连接器只读数据；三者皆空时必须停在 G1 闸门
 - **依据与结论**：把本步结论对应到具体输入项
 - **未决 · 待填**：缺数据处写 `<待填>` 并给出获取方式
 
-### 步骤 2：老板确认改派方案
+### 步骤 2：项目/技师/时间匹配
 
-- **做**：老板确认改派方案
+- **做**：项目/技师/时间匹配
 - **输入来源**：步骤 1 的产出 / 本员工知识库 `kb/` / 连接器只读数据
+- **依据与结论**：把本步结论对应到具体输入项
+- **未决 · 待填**：缺数据处写 `<待填>` 并给出获取方式
+
+### 步骤 3：确认
+
+- **做**：确认
+- **输入来源**：步骤 2 的产出 / 本员工知识库 `kb/` / 连接器只读数据
 - **依据与结论**：把本步结论对应到具体输入项
 - **未决 · 待填**：缺数据处写 `<待填>` 并给出获取方式
 

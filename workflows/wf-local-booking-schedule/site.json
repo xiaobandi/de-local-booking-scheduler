@@ -1,0 +1,15 @@
+{
+  "name": "wf-local-booking-schedule",
+  "title": "技师/场地智能排班",
+  "kind": "workflow",
+  "owner": "de-local-booking-scheduler",
+  "complexity": "M",
+  "phase": "P1",
+  "one_liner": "当日预约 → 排班表 → 负荷均衡调整建议",
+  "pages": [
+    "docs/使用手册.html",
+    "docs/使用示例.html",
+    "docs/用户场景.html",
+    "docs/架构与流程图.html"
+  ]
+}

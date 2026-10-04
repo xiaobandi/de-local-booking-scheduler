@@ -1,30 +1,37 @@
 ---
-name: wf-local-booking-noshow-remind
+name: wf-local-booking-efficiency-weekly
 description: >-
-  预约排班调度员 的「爽约预测+候补补位」工作流：历史爽约特征打分 → 高风险预约提前确认 → 爽约后候补名单自动通知。触发方式：定时（每日两次扫描）。
-  当用户要完成「爽约预测+候补补位」这件事、或触发了上述条件时使用。
+  预约排班调度员 的「排班效率周报」工作流：上座率热力图 → 低谷时段促销建议。触发方式：定时（每周一）。
+  当用户要完成「排班效率周报」这件事、或触发了上述条件时使用。
 license: Proprietary
+compatibility: >-
+  需要能读取工作区文件；若环境支持执行代码，将额外启用 scripts/ 下的确定性脚本路径。
+  跨 WorkBuddy / ChatGPT / DeepSeek Harness / Kimi Work / 豆包工作。
 metadata:
   author: PLATFORM
   version: "1.0.0"
   standard: agent-skills/v1
+  library: agent-skills-library
   layer: L2-workflow
   owner: de_local_booking_scheduler
-  complexity: L
-  phase: P1
-  source: library
+  repo: de-local-booking-scheduler
+  visibility: private_to_employee
+  delivery: employee
+  complexity: S
+  phase: P2
+  source: new
 ---
 
-# 爽约预测+候补补位
+# 排班效率周报
 
-> 归属：**预约排班调度员**（`de-local-booking-scheduler`）　触发：定时（每日两次扫描）　
-> 复杂度 L　阶段 P1
+> 归属：**预约排班调度员**（`de-local-booking-scheduler`）　触发：定时（每周一）　
+> 复杂度 S　阶段 P2
 
 ## 一、这条工作流解决什么
 
-历史爽约特征打分 → 高风险预约提前确认 → 爽约后候补名单自动通知
+上座率热力图 → 低谷时段促销建议
 
-**业务收益**：单次爽约损失 100–500 元，月挽回数千元
+**业务收益**：低谷填平=直接营收
 
 ## 二、调用的 SKILL（必填列，逐条锁定版本）
 
@@ -38,24 +45,17 @@ metadata:
 
 ## 三、执行步骤（每步四要素齐备）
 
-### 步骤 1：历史爽约特征打分
+### 步骤 1：上座率热力图
 
-- **做**：历史爽约特征打分
+- **做**：上座率热力图
 - **输入来源**：用户提供的原始材料（工作流第 1 步没有「上一步」）/ 本员工知识库 `kb/` / 连接器只读数据；三者皆空时必须停在 G1 闸门
 - **依据与结论**：把本步结论对应到具体输入项
 - **未决 · 待填**：缺数据处写 `<待填>` 并给出获取方式
 
-### 步骤 2：高风险预约提前确认
+### 步骤 2：低谷时段促销建议
 
-- **做**：高风险预约提前确认
+- **做**：低谷时段促销建议
 - **输入来源**：步骤 1 的产出 / 本员工知识库 `kb/` / 连接器只读数据
-- **依据与结论**：把本步结论对应到具体输入项
-- **未决 · 待填**：缺数据处写 `<待填>` 并给出获取方式
-
-### 步骤 3：爽约后候补名单自动通知
-
-- **做**：爽约后候补名单自动通知
-- **输入来源**：步骤 2 的产出 / 本员工知识库 `kb/` / 连接器只读数据
 - **依据与结论**：把本步结论对应到具体输入项
 - **未决 · 待填**：缺数据处写 `<待填>` 并给出获取方式
 
