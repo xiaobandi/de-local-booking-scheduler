@@ -5,6 +5,12 @@
 > **7.4.6 ⑤**　·　本地生活服务商家　·　阶段 **P1 二期**（与会员唤醒师打包"美业/健身版"，客单价与续费率最高）　·　
 > 复杂度 **L**（排班引擎需定制开发）　·　100–300 元/月（美业 SaaS 主流价位，据 R4 调研）；**代配置服务加成：800–2000 元/次**（预约入口搭建+技师与项目库灌入+小程序对接——本群体内配置难度最高，加成空间最大）　·　定义卡 7.4.6 ⑤
 
+## 演示（真实执行录播）
+
+![演示](workflows/wf-local-booking-conflict-check/docs/images/08-demo-run.gif)
+
+*真实执行回放（GIF 自动循环，非摆拍）· [▶ 观看完整版 MP4](workflows/wf-local-booking-conflict-check/docs/images/08-demo-run.mp4) · 台账见 [`reports/real-run/wf-local-booking-conflict-check.md`](reports/real-run/wf-local-booking-conflict-check.md)*
+
 ![架构](docs/images/architecture.svg)
 
 ## 效果（真实执行）
@@ -58,6 +64,7 @@ python3 tests/run.py            # 先跑一遍自检，确认环境与契约都�
 
 ```text
 de-local-booking-scheduler/
+├── employee.md            # 人读定义卡（12 主字段 + 2 扩展组，由 employee.yaml 生成）
 ├── employee.yaml          # 机器契约（能力清单 + 依赖锁）
 ├── dependencies.yaml      # 对 core 的外部依赖（含版本）
 ├── persona/               # 运行提示词 / 边界 / KPI
